@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 
 import ConnectedUserPreferencesForm from '../../connectedComponents/ConnectedUserPreferencesForm';
 import { Dropdown, AboutContent, withModal } from '@ohif/ui';
-import OHIFLogo from '../OHIFLogo/OHIFLogo.js';
+// import OHIFLogo from '../OHIFLogo/OHIFLogo.js';
+import BrainnowLogo from '../BrainnowLogo/BrainnowLogo.js';
 import './Header.css';
 
 // Context
@@ -25,7 +26,7 @@ class Header extends Component {
 
   static defaultProps = {
     home: true,
-    children: OHIFLogo(),
+    children: BrainnowLogo(),
   };
 
   constructor(props) {
