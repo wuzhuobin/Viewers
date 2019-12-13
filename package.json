@@ -34,7 +34,8 @@
     "release": "yarn run lerna:version && yarn run lerna:publish",
     "lerna:version": "npx lerna version prerelease --force-publish",
     "lerna:publish": "lerna publish from-package --canary --dist-tag canary",
-    "link-list": "npm ls --depth=0 --link=true"
+    "link-list": "npm ls --depth=0 --link=true",
+    "yarn": "yarn"
   },
   "dependencies": {
     "@babel/runtime": "^7.5.5",
