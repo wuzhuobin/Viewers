@@ -26,6 +26,11 @@ const ViewerLocalFileData = asyncComponent(() =>
     /* webpackChunkName: "ViewerLocalFileData" */ '../connectedComponents/ViewerLocalFileData.js'
   )
 );
+const BrainnowRouting = asyncComponent(() =>
+  import(
+    /* webpackChunkName: "ViewerLocalFileData" */ '../brainnowComponents/BrannowImagesRouting.js'
+  )
+);
 
 const reload = () => window.location.reload();
 
@@ -78,6 +83,10 @@ const ROUTES_DEF = {
         return showList && !!appConfig.enableGoogleCloudAdapter;
       },
     },
+    list: {
+      path: '/brainnow/*',
+      component: BrainnowRouting,
+    }
   },
 };
 
