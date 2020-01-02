@@ -28,7 +28,7 @@ const ViewerLocalFileData = asyncComponent(() =>
 );
 const BrainnowRouting = asyncComponent(() =>
   import(
-    /* webpackChunkName: "ViewerLocalFileData" */ '../brainnowComponents/BrannowImagesRouting.js'
+    /* webpackChunkName: "ViewerLocalFileData" */ './BrannowImagesRouting.js'
   )
 );
 
