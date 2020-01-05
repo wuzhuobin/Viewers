@@ -1,7 +1,6 @@
 import './BrainnowLogo.css';
 import BrainnowIcon from './brainnow-icon.svg'
 
-import { Icon } from '@ohif/ui';
 import React from 'react';
 
 function BrainnowLogo() {

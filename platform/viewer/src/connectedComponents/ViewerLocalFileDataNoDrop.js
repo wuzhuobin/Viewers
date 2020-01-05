@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { metadata, utils, redux } from '@ohif/core';
 import { connect } from 'react-redux';
 
-import ConnectedViewer from '../connectedComponents/ConnectedViewer.js';
+import ConnectedViewer from './ConnectedViewer.js';
 import PropTypes from 'prop-types';
 import { extensionManager } from '../App.js';
 import filesToStudies from '../lib/filesToStudies';
@@ -91,15 +91,8 @@ class ViewerLocalFileDataNoDrop extends Component {
     const response = await fetch(this.props.imagesUrl, {
       method: 'GET'
     });
-    const paths = await response.json();
-    // console.log(paths);
-    // for (let i = 1; i < 10; ++i) {
-    //   paths.push(`${window.location.origin}/data/CUBE_T1/1/IMG-0003-0000${i}.dcm`);
-    // }
-    // for (let i = 1; i < 10; ++i) {
-    //   paths.push(`${window.location.origin}/data/TOF/1/IMG-0002-0000${i}.dcm`);
-    // }
-    const acceptedFiles = await Promise.all(paths.map(async (element) => {
+    const json = await response.json();
+    const pathsToFiles = async (paths) => Promise.all(paths.map(async (element) => {
       const response = await fetch(element);
       const blob = await response.blob();
       const file = new File([blob], "", {
@@ -107,13 +100,48 @@ class ViewerLocalFileDataNoDrop extends Component {
       });
       return file;
     }));
-
-    const studies = await filesToStudies(acceptedFiles);
-    const updatedStudies = this.updateStudies(studies);
-    this.props.oneXTwoLayout();
-    if (!updatedStudies) {
-      return;
+    let studies = [];
+    const t1Paths = json.t1;
+    if (t1Paths) {
+      const acceptedFiles = await pathsToFiles(t1Paths);
+      studies = await filesToStudies(acceptedFiles);
+      this.updateStudies(studies);
     }
+    const t2Paths = json.t2;
+    if (t2Paths) {
+      const acceptedFiles = await pathsToFiles(t2Paths);
+      studies = (await filesToStudies(acceptedFiles)).concat(studies);
+      this.updateStudies(studies);
+      this.props.oneXTwoLayout();
+    }
+
+    // const t1Paths = json.t1;
+    // if (t1Paths) {
+    //   const acceptedFiles = await Promise.all(t1Paths.map(async (element) => {
+    //     const response = await fetch(element);
+    //     const blob = await response.blob();
+    //     const file = new File([blob], "", {
+    //       type: "application/dicom",
+    //     });
+    //     return file;
+    //   }));
+    //   studies = await filesToStudies(acceptedFiles);
+    //   this.updateStudies(studies);
+    // }
+    // const t2Paths = json.t2;
+    // if (t2Paths) {
+    //   const acceptedFiles = await Promise.all(t2Paths.map(async (element) => {
+    //     const response = await fetch(element);
+    //     const blob = await response.blob();
+    //     const file = new File([blob], "", {
+    //       type: "application/dicom",
+    //     });
+    //     return file;
+    //   }));
+    //   studies = [...await filesToStudies(acceptedFiles), ...studies];
+    //   this.updateStudies(studies);
+    //   this.props.oneXTwoLayout();
+    // }
 
   }
 
