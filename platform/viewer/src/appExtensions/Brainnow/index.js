@@ -1,6 +1,8 @@
 import toolbalModule from './toolbalModule';
 import commandsModule from './commandsModule';
 import init from './init';
+import asyncComponent from './asyncComponent';
+const OHIFCornerstoneViewport = asyncComponent(() => import('./OHIFCornerstoneViewport'));
 export default {
   /**
    * Only required property. Should be a unique value across all extensions.
@@ -37,8 +39,7 @@ export default {
   //   console.log('brainnow getSopClassHandler');
   //   // return sopClassHandlerModule;
   // },
-  // getViewportModule() {
-  //   console.log('brainnow getViewportModule')
-  //   // return '... react component ...'
-  // },
+  getViewportModule() {
+    return OHIFCornerstoneViewport;
+  },
 }

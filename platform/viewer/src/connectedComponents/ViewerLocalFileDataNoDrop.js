@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 
 import ConnectedViewer from './ConnectedViewer.js';
 import PropTypes from 'prop-types';
-import { extensionManager } from '../App.js';
+import { extensionManager, commandsManager } from '../App.js';
 import filesToStudies from '../lib/filesToStudies';
 import './ViewerLocalFileDataNoDrop.css';
 import { withTranslation } from 'react-i18next';
+import { commnadsManager } from '../App';
 
 
 const { OHIFStudyMetadata } = metadata;
@@ -15,32 +16,11 @@ const { studyMetadataManager, updateMetaDataManager } = utils;
 const { setLayout } = redux.actions;
 const mapDispatchToProps = dispatch => {
   return {
-    oneXTwoLayout: () => {
-      const layout = {
-        numRows: 1,
-        numColumns: 2,
-        viewports: [
-          { plugin: 'cornerstone' },
-          { plugin: 'cornerstone' },
-        ],
-      };
+    setLayout: (layout) => {
       dispatch(setLayout(layout));
-    }
+    },
   }
 };
-// const mapDispatchToProps = {
-//   oneXTwoLayout: () => {
-//     const layout = {
-//       numRows: 1,
-//       numColumns: 2,
-//       viewports: [
-//         { plugin: 'cornerstone' },
-//         { plugin: 'cornerstone' },
-//       ],
-//     };
-//     setLayout(layout);
-//   },
-// };
 
 class ViewerLocalFileDataNoDrop extends Component {
   static propTypes = {
@@ -87,6 +67,9 @@ class ViewerLocalFileDataNoDrop extends Component {
   };
 
   async componentDidMount() {
+    // const colormaps = cornerstone.colors.getColormapsList();
+    // console.log(colormaps);
+    // console.log(this);
     this.setState({ loading: true });
     const response = await fetch(this.props.imagesUrl, {
       method: 'GET'
@@ -101,49 +84,67 @@ class ViewerLocalFileDataNoDrop extends Component {
       return file;
     }));
     let studies = [];
-    const t1Paths = json.t1;
-    if (t1Paths) {
-      const acceptedFiles = await pathsToFiles(t1Paths);
+    const jetPaths = json.jet;
+    if (jetPaths) {
+      const acceptedFiles = await pathsToFiles(jetPaths);
       studies = await filesToStudies(acceptedFiles);
       this.updateStudies(studies);
+      this.props.setLayout({
+        numRows: 1,
+        numColumns: 1,
+        viewports: [
+          // { plugin: 'brainnow-cornerstone' },
+          { plugin: 'cornerstone' },
+        ],
+      });
     }
     const t2Paths = json.t2;
     if (t2Paths) {
       const acceptedFiles = await pathsToFiles(t2Paths);
       studies = (await filesToStudies(acceptedFiles)).concat(studies);
       this.updateStudies(studies);
-      this.props.oneXTwoLayout();
+      this.props.setLayout({
+        numRows: 1,
+        numColumns: 2,
+        viewports: [
+          // { plugin: 'brainnow-cornerstone' },
+          { plugin: 'cornerstone' },
+          { plugin: 'cornerstone' },
+        ],
+      });
+      // commandsManager.runCommand('setJetColormap');
+      setTimeout(() => {
+        commandsManager.runCommand('setJetColormap');
+      }, 1000);
     }
-
-    // const t1Paths = json.t1;
-    // if (t1Paths) {
-    //   const acceptedFiles = await Promise.all(t1Paths.map(async (element) => {
-    //     const response = await fetch(element);
-    //     const blob = await response.blob();
-    //     const file = new File([blob], "", {
-    //       type: "application/dicom",
-    //     });
-    //     return file;
-    //   }));
-    //   studies = await filesToStudies(acceptedFiles);
-    //   this.updateStudies(studies);
-    // }
-    // const t2Paths = json.t2;
-    // if (t2Paths) {
-    //   const acceptedFiles = await Promise.all(t2Paths.map(async (element) => {
-    //     const response = await fetch(element);
-    //     const blob = await response.blob();
-    //     const file = new File([blob], "", {
-    //       type: "application/dicom",
-    //     });
-    //     return file;
-    //   }));
-    //   studies = [...await filesToStudies(acceptedFiles), ...studies];
-    //   this.updateStudies(studies);
-    //   this.props.oneXTwoLayout();
-    // }
-
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.studies === prevState.studies) {
+  //     return;
+  //   }
+  //   else if (this.state.studies.length === 1) {
+  //     this.props.setLayout({
+  //       numRows: 1,
+  //       numColumns: 1,
+  //       viewports: [
+  //         // { plugin: 'brainnow-cornerstone' },
+  //         { plugin: 'cornerstone' },
+  //       ],
+  //     });
+  //   }
+  //   else if (this.state.studies.length === 2) {
+  //     commandsManager.runCommand('setJetColormap');
+  //     this.props.setLayout({
+  //       numRows: 1,
+  //       numColumns: 2,
+  //       viewports: [
+  //         { plugin: 'cornerstone' },
+  //         { plugin: 'cornerstone' },
+  //       ],
+  //     });
+  //   }
+  // }
 
   render() {
 

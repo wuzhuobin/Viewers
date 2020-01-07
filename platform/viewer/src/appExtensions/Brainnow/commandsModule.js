@@ -1,4 +1,5 @@
 import cornerstoneTools from 'cornerstone-tools';
+import cornerstone from 'cornerstone-core';
 
 const commandsModule = ({ commandsManager }) => {
   const actions = {
@@ -15,6 +16,23 @@ const commandsModule = ({ commandsManager }) => {
       }
       cornerstoneTools.setToolActive(toolName, { mouseButtonMask: 1 })
     },
+    setJetColormap: () => {
+      const colormap = cornerstone.colors.getColormap('jet');
+      const element = commandsManager.runCommand('getActiveViewportEnabledElement');
+      const viewport = cornerstone.getViewport(element);
+      viewport.colormap = colormap;
+      cornerstone.setViewport(element, viewport);
+      cornerstone.updateImage(element, true);
+      // cornerstone.getEnabledElements().forEach(elem => {
+      //   console.log(elem)
+      //   const viewport = cornerstone.getViewport(elem.element);
+      //   console.log(viewport)
+      //   //   viewport.colormap = colormap;
+      //   //   console.log(viewport)
+      //   //   cornerstone.setViewport(elem.element, viewport);
+      //   //   cornerstone.updateImage(elem.element, true);
+      // });
+    },
   };
 
   const definitions = {
@@ -25,6 +43,11 @@ const commandsModule = ({ commandsManager }) => {
     },
     setToolActive: {
       commandFn: actions.setToolActive,
+      storeContexts: [],
+      options: {}
+    },
+    setJetColormap: {
+      commandFn: actions.setJetColormap,
       storeContexts: [],
       options: {}
     },
