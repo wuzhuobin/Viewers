@@ -40,7 +40,6 @@ import {
 
 /** Extensions */
 import { GenericViewerCommands, MeasurementsPanel } from './appExtensions';
-import BrainnowExtension from './appExtensions/Brainnow';
 
 /** Viewer */
 import OHIFStandaloneViewer from './OHIFStandaloneViewer';
@@ -252,7 +251,6 @@ function _initExtensions(extensions, cornerstoneExtensionConfig, appConfig) {
     [OHIFCornerstoneExtension, cornerstoneExtensionConfig],
     /* WARNING: MUST BE REGISTERED _AFTER_ OHIFCornerstoneExtension */
     MeasurementsPanel,
-    BrainnowExtension
   ];
   const mergedExtensions = requiredExtensions.concat(extensions);
   extensionManager.registerExtensions(mergedExtensions);

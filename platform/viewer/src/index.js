@@ -26,6 +26,7 @@ import OHIFVTKExtension from '@ohif/extension-vtk';
 import OHIFDicomHtmlExtension from '@ohif/extension-dicom-html';
 import OHIFDicomMicroscopyExtension from '@ohif/extension-dicom-microscopy';
 import OHIFDicomPDFExtension from '@ohif/extension-dicom-pdf';
+import BrainnowExtension from './appExtensions/Brainnow';
 
 /*
  * Default Settings
@@ -43,6 +44,7 @@ const appProps = {
     OHIFDicomHtmlExtension,
     OHIFDicomMicroscopyExtension,
     OHIFDicomPDFExtension,
+    BrainnowExtension,
   ],
 };
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import ConnectedCornerstoneViewport from './ConnectedCornerstoneViewport';
+import ConnectedSyncCornerstoneViewport from './ConnectedSyncCornerstoneViewport';
 import OHIF from '@ohif/core';
 import PropTypes from 'prop-types';
 import cornerstone from 'cornerstone-core';
@@ -26,7 +26,7 @@ specialCaseHandlers[
   SOP_CLASSES.SEGMENTATION_STORAGE
 ] = handleSegmentationStorage;
 
-class OHIFCornerstoneViewport extends Component {
+class BrainnowCornerstoneViewport extends Component {
   state = {
     viewportData: null,
   };
@@ -43,14 +43,14 @@ class OHIFCornerstoneViewport extends Component {
     customProps: PropTypes.object,
   };
 
-  static id = 'OHIFCornerstoneViewport';
+  static id = 'BrainnowCornerstoneViewport';
 
   static init() {
-    console.log('OHIFCornerstoneViewport init()');
+    console.log('BrainnowCornerstoneViewport init()');
   }
 
   static destroy() {
-    console.log('OHIFCornerstoneViewport destroy()');
+    console.log('BrainnowCornerstoneViewport destroy()');
     StackManager.clearStacks();
   }
 
@@ -156,7 +156,7 @@ class OHIFCornerstoneViewport extends Component {
         );
         break;
       default:
-        const stack = OHIFCornerstoneViewport.getCornerstoneStack(
+        const stack = BrainnowCornerstoneViewport.getCornerstoneStack(
           studies,
           studyInstanceUid,
           displaySetInstanceUid,
@@ -258,10 +258,10 @@ class OHIFCornerstoneViewport extends Component {
       });
     }
 
-    console.log('fasdfasdfasdfasdfasdfasdfs');
+    // console.log('BrainnowCornerstoneViewport');
     return (
       <>
-        <ConnectedCornerstoneViewport
+        <ConnectedSyncCornerstoneViewport
           viewportIndex={viewportIndex}
           imageIds={imageIds}
           imageIdIndex={currentImageIdIndex}
@@ -279,4 +279,4 @@ class OHIFCornerstoneViewport extends Component {
   }
 }
 
-export default OHIFCornerstoneViewport;
+export default BrainnowCornerstoneViewport;

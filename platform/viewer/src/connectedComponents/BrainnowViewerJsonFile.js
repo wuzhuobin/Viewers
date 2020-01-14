@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { metadata, utils, redux } from '@ohif/core';
 import { connect } from 'react-redux';
 
-import ConnectedViewer from './ConnectedViewer.js';
+import ConnectedBrainnowViewer from './ConnectedBrainnowViewer';
 import PropTypes from 'prop-types';
 import { extensionManager, commandsManager } from '../App.js';
 import filesToStudies from '../lib/filesToStudies';
-import './ViewerLocalFileDataNoDrop.css';
+import './ViewerLocalFileData.css';
 import { withTranslation } from 'react-i18next';
-import { commnadsManager } from '../App';
 
 
 const { OHIFStudyMetadata } = metadata;
@@ -22,7 +21,7 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-class ViewerLocalFileDataNoDrop extends Component {
+class BrainnowViewerJsonFile extends Component {
   static propTypes = {
     studies: PropTypes.array,
     imagesUrl: PropTypes.string,
@@ -61,6 +60,7 @@ class ViewerLocalFileDataNoDrop extends Component {
       studyMetadataManager.add(studyMetadata);
       return study;
     });
+
     this.setState({
       studies: updatedStudies,
     });
@@ -93,8 +93,7 @@ class ViewerLocalFileDataNoDrop extends Component {
         numRows: 1,
         numColumns: 1,
         viewports: [
-          // { plugin: 'brainnow-cornerstone' },
-          { plugin: 'cornerstone' },
+          { plugin: 'brainnow-cornerstone' },
         ],
       });
     }
@@ -107,44 +106,16 @@ class ViewerLocalFileDataNoDrop extends Component {
         numRows: 1,
         numColumns: 2,
         viewports: [
-          // { plugin: 'brainnow-cornerstone' },
-          { plugin: 'cornerstone' },
-          { plugin: 'cornerstone' },
+          { plugin: 'brainnow-cornerstone' },
+          { plugin: 'brainnow-cornerstone' },
         ],
       });
       // commandsManager.runCommand('setJetColormap');
-      setTimeout(() => {
-        commandsManager.runCommand('setJetColormap');
-      }, 1000);
+      // setTimeout(() => {
+      //   commandsManager.runCommand('setJetColormap');
+      // }, 1000);
     }
   }
-
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.studies === prevState.studies) {
-  //     return;
-  //   }
-  //   else if (this.state.studies.length === 1) {
-  //     this.props.setLayout({
-  //       numRows: 1,
-  //       numColumns: 1,
-  //       viewports: [
-  //         // { plugin: 'brainnow-cornerstone' },
-  //         { plugin: 'cornerstone' },
-  //       ],
-  //     });
-  //   }
-  //   else if (this.state.studies.length === 2) {
-  //     commandsManager.runCommand('setJetColormap');
-  //     this.props.setLayout({
-  //       numRows: 1,
-  //       numColumns: 2,
-  //       viewports: [
-  //         { plugin: 'cornerstone' },
-  //         { plugin: 'cornerstone' },
-  //       ],
-  //     });
-  //   }
-  // }
 
   render() {
 
@@ -154,7 +125,7 @@ class ViewerLocalFileDataNoDrop extends Component {
 
     return (
       <div style={{ width: '100%', height: '100%' }}>
-        <ConnectedViewer
+        <ConnectedBrainnowViewer
           studies={this.state.studies}
           studyInstanceUids={
             this.state.studies &&
@@ -166,4 +137,4 @@ class ViewerLocalFileDataNoDrop extends Component {
   }
 }
 
-export default withTranslation('Common')(connect(null, mapDispatchToProps)(ViewerLocalFileDataNoDrop));
+export default withTranslation('Common')(connect(null, mapDispatchToProps)(BrainnowViewerJsonFile));

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ViewerLocalFileDataNoDrop from '../connectedComponents/ViewerLocalFileDataNoDrop';
+import BrainnowViewerJsonFile from '../connectedComponents/BrainnowViewerJsonFile';
 
 function BrainnowImagesRouting(route) {
   const imagesUrl = route.match.params[0];
   // console.log(imagesURL)
-  return (<ViewerLocalFileDataNoDrop imagesUrl={imagesUrl}></ViewerLocalFileDataNoDrop>);
+  return (<BrainnowViewerJsonFile imagesUrl={imagesUrl}></BrainnowViewerJsonFile>);
 };
 
 BrainnowImagesRouting.propTypes = {

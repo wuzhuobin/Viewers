@@ -1,8 +1,10 @@
-import toolbalModule from './toolbalModule';
+import toolbarModule from './toolbarModule';
 import commandsModule from './commandsModule';
 import init from './init';
-import asyncComponent from './asyncComponent';
-const OHIFCornerstoneViewport = asyncComponent(() => import('./OHIFCornerstoneViewport'));
+import BrainnowCornerstoneViewport from './BrainnowCornerstoneViewport';
+import sopClassHandlerModule from './sopClassHandlerModule';
+// import asyncComponent from './asyncComponent';
+// const BrainnowCornerstoneViewport = asyncComponent(() => import('./BrainnowCornerstoneViewport'));
 export default {
   /**
    * Only required property. Should be a unique value across all extensions.
@@ -15,11 +17,6 @@ export default {
     appConfig = {},
     // configuration = {},
   }) {
-    // console.log('brainnow preRegistration');
-    // console.log(servicesManager);
-    // console.log(commandsManager);
-    // console.log(appConfig);
-    // console.log(configuration);
     init({ servicesManager, commandsManager, appConfig });
   },
   // Modules
@@ -29,17 +26,16 @@ export default {
   },
   getToolbarModule() {
     // console.log('brainnow getToolbarModule')
-    return toolbalModule;
+    return toolbarModule;
   },
   // getPanelModule() {
   //   console.log('brainnow getPanelModule')
   //   // return panelModule;
   // },
-  // getSopClassHandler() {
-  //   console.log('brainnow getSopClassHandler');
-  //   // return sopClassHandlerModule;
-  // },
+  getSopClassHandler() {
+    return sopClassHandlerModule;
+  },
   getViewportModule() {
-    return OHIFCornerstoneViewport;
+    return BrainnowCornerstoneViewport;
   },
 }

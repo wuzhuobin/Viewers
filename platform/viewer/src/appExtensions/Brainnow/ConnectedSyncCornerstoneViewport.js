@@ -1,4 +1,4 @@
-import CornerstoneViewport from 'react-cornerstone-viewport';
+import SyncCornerstoneViewport from './SyncCornerstoneViewport';
 import OHIF from '@ohif/core';
 import { connect } from 'react-redux';
 import throttle from 'lodash.throttle';
@@ -82,12 +82,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onElementEnabled: event => {
       const enabledElement = event.detail.element;
       setEnabledElement(viewportIndex, enabledElement);
-      // dispatch(
-      //   setViewportSpecificData(viewportIndex, {
-      //     // TODO: Hack to make sure our plugin info is available from the outset
-      //     plugin: 'brainnow-cornerstone',
-      //   })
-      // );
+      dispatch(
+        setViewportSpecificData(viewportIndex, {
+          // TODO: Hack to make sure our plugin info is available from the outset
+          plugin: 'brainnow-cornerstone',
+        })
+      );
     },
 
     onMeasurementsChanged: (event, action) => {
@@ -96,9 +96,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-const ConnectedCornerstoneViewport = connect(
+const ConnectedSyncCornerstoneViewport = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CornerstoneViewport);
+)(SyncCornerstoneViewport);
 
-export default ConnectedCornerstoneViewport;
+export default ConnectedSyncCornerstoneViewport;
