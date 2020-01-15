@@ -3,20 +3,20 @@ window.config = {
   whiteLabelling: {},
   extensions: [],
   showStudyList: true,
-  servers: {
-    dicomWeb: [
-      {
-        name: 'DCM4CHEE',
-        wadoUriRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado',
-        qidoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
-        wadoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
-        qidoSupportsIncludeField: true,
-        imageRendering: 'wadors',
-        thumbnailRendering: 'wadors',
-        enableStudyLazyLoad: true,
-      },
-    ],
-  },
+  // servers: {
+  //   dicomWeb: [
+  //     {
+  //       name: 'DCM4CHEE',
+  //       wadoUriRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado',
+  //       qidoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
+  //       wadoRoot: 'https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs',
+  //       qidoSupportsIncludeField: true,
+  //       imageRendering: 'wadors',
+  //       thumbnailRendering: 'wadors',
+  //       enableStudyLazyLoad: true,
+  //     },
+  //   ],
+  // },
   hotkeys: [
     {
       commandName: 'incrementActiveViewport',

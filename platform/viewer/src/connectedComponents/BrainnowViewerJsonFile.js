@@ -3,6 +3,7 @@ import { metadata, utils, redux } from '@ohif/core';
 import { connect } from 'react-redux';
 
 import ConnectedBrainnowViewer from './ConnectedBrainnowViewer';
+import ConnectedViewer from './ConnectedViewer';
 import PropTypes from 'prop-types';
 import { extensionManager, commandsManager } from '../App.js';
 import filesToStudies from '../lib/filesToStudies';
@@ -45,6 +46,7 @@ class BrainnowViewerJsonFile extends Component {
       );
       const sopClassHandlerModules =
         extensionManager.modules['sopClassHandlerModule'];
+      // console.log(studyMetadata.createDisplaySets(sopClassHandlerModules));
 
       study.displaySets =
         study.displaySets ||
@@ -58,8 +60,12 @@ class BrainnowViewerJsonFile extends Component {
       updateMetaDataManager(study);
 
       studyMetadataManager.add(studyMetadata);
+      // console.log('studyMetadata');
+      // console.log(studyMetadata);
       return study;
     });
+    // console.log('updatedStudies');
+    // console.log(updatedStudies);
 
     this.setState({
       studies: updatedStudies,
@@ -67,9 +73,6 @@ class BrainnowViewerJsonFile extends Component {
   };
 
   async componentDidMount() {
-    // const colormaps = cornerstone.colors.getColormapsList();
-    // console.log(colormaps);
-    // console.log(this);
     this.setState({ loading: true });
     const response = await fetch(this.props.imagesUrl, {
       method: 'GET'
@@ -93,6 +96,7 @@ class BrainnowViewerJsonFile extends Component {
         numRows: 1,
         numColumns: 1,
         viewports: [
+          // { plugin: 'cornerstone' },
           { plugin: 'brainnow-cornerstone' },
         ],
       });
@@ -106,14 +110,12 @@ class BrainnowViewerJsonFile extends Component {
         numRows: 1,
         numColumns: 2,
         viewports: [
+          // { plugin: 'cornerstone' },
+          // { plugin: 'cornerstone' },
           { plugin: 'brainnow-cornerstone' },
           { plugin: 'brainnow-cornerstone' },
         ],
       });
-      // commandsManager.runCommand('setJetColormap');
-      // setTimeout(() => {
-      //   commandsManager.runCommand('setJetColormap');
-      // }, 1000);
     }
   }
 
@@ -133,6 +135,15 @@ class BrainnowViewerJsonFile extends Component {
           }
         />
       </div>
+      // <div style={{ width: '100%', height: '100%' }}>
+      //   <ConnectedViewer
+      //     studies={this.state.studies}
+      //     studyInstanceUids={
+      //       this.state.studies &&
+      //       this.state.studies.map(a => a.studyInstanceUid)
+      //     }
+      //   />
+      // </div>
     );
   }
 }

@@ -237,6 +237,7 @@ class BrainnowCornerstoneViewport extends Component {
       return null;
     }
     const { viewportIndex } = this.props;
+    const { seriesDescription } = this.props.viewportData.displaySet;
     const {
       imageIds,
       currentImageIdIndex,
@@ -258,13 +259,13 @@ class BrainnowCornerstoneViewport extends Component {
       });
     }
 
-    // console.log('BrainnowCornerstoneViewport');
     return (
       <>
         <ConnectedSyncCornerstoneViewport
           viewportIndex={viewportIndex}
           imageIds={imageIds}
-          imageIdIndex={currentImageIdIndex}
+          imageIdIndex={imageIds.length * 0.5}
+          colormap={seriesDescription}
           // ~~ Connected (From REDUX)
           // frameRate={frameRate}
           // isPlaying={false}

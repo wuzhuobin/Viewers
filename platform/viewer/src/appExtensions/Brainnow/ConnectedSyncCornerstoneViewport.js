@@ -2,7 +2,7 @@ import SyncCornerstoneViewport from './SyncCornerstoneViewport';
 import OHIF from '@ohif/core';
 import { connect } from 'react-redux';
 import throttle from 'lodash.throttle';
-import { setEnabledElement } from './state';
+import { setEnabledElement } from '@ohif/extension-cornerstone/src/state';
 
 const { setViewportActive, setViewportSpecificData } = OHIF.redux.actions;
 const {

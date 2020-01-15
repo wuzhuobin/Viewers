@@ -2,7 +2,7 @@ import toolbarModule from './toolbarModule';
 import commandsModule from './commandsModule';
 import init from './init';
 import BrainnowCornerstoneViewport from './BrainnowCornerstoneViewport';
-import sopClassHandlerModule from './sopClassHandlerModule';
+import BrainnowCornerstoneSopClassHandlerModule from './BrainnowCornerstoneSopClassHandlerModule';
 // import asyncComponent from './asyncComponent';
 // const BrainnowCornerstoneViewport = asyncComponent(() => import('./BrainnowCornerstoneViewport'));
 export default {
@@ -32,8 +32,8 @@ export default {
   //   console.log('brainnow getPanelModule')
   //   // return panelModule;
   // },
-  getSopClassHandler() {
-    return sopClassHandlerModule;
+  getSopClassHandlerModule() {
+    return BrainnowCornerstoneSopClassHandlerModule;
   },
   getViewportModule() {
     return BrainnowCornerstoneViewport;
