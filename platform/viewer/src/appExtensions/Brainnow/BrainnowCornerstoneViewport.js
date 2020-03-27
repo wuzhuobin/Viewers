@@ -264,7 +264,7 @@ class BrainnowCornerstoneViewport extends Component {
         <ConnectedSyncCornerstoneViewport
           viewportIndex={viewportIndex}
           imageIds={imageIds}
-          imageIdIndex={imageIds.length * 0.5}
+          imageIdIndex={Math.floor(imageIds.length * 0.5)}
           colormap={seriesDescription}
           // ~~ Connected (From REDUX)
           // frameRate={frameRate}
