@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
+
 import PropTypes from 'prop-types';
 
-import ConnectedUserPreferencesForm from '../../connectedComponents/ConnectedUserPreferencesForm';
 import { Dropdown, AboutContent, withModal } from '@ohif/ui';
+import { UserPreferences } from './../UserPreferences';
 // import OHIFLogo from '../OHIFLogo/OHIFLogo.js';
 import BrainnowLogo from '../BrainnowLogo/BrainnowLogo.js';
+
 import './Header.css';
 
 // Context
@@ -43,7 +45,7 @@ function Header(props) {
         },
         onClick: () =>
           show({
-            content: ConnectedUserPreferencesForm,
+            content: UserPreferences,
             title: t('User Preferences'),
           }),
       },

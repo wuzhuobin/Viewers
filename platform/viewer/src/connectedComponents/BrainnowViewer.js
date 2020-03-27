@@ -18,46 +18,31 @@ import WhiteLabellingContext from '../context/WhiteLabellingContext.js';
 import UserManagerContext from '../context/UserManagerContext';
 
 import './Viewer.css';
-/**
- * Inits OHIF Hanging Protocol's onReady.
- * It waits for OHIF Hanging Protocol to be ready to instantiate the ProtocolEngine
- * Hanging Protocol will use OHIF LayoutManager to render viewports properly
- */
-/*const initHangingProtocol = () => {
-    // When Hanging Protocol is ready
-    HP.ProtocolStore.onReady(() => {
-
-        // Gets all StudyMetadata objects: necessary for Hanging Protocol to access study metadata
-        const studyMetadataList = OHIF.viewer.StudyMetadataList.all();
-
-        // Instantiate StudyMetadataSource: necessary for Hanging Protocol to get study metadata
-        const studyMetadataSource = new OHIF.studies.classes.OHIFStudyMetadataSource();
-
-        // Get prior studies map
-        const studyPriorsMap = OHIF.studylist.functions.getStudyPriorsMap(studyMetadataList);
-
-        // Creates Protocol Engine object with required arguments
-        const ProtocolEngine = new HP.ProtocolEngine(layoutManager, studyMetadataList, studyPriorsMap, studyMetadataSource);
-
-        // Sets up Hanging Protocol engine
-        HP.setEngine(ProtocolEngine);
-    });
-};*/
-
-/*const viewportUtils = OHIF.viewerbase.viewportUtils;
-
-OHIF.viewer.functionList = {
-    toggleCineDialog: viewportUtils.toggleCineDialog,
-    toggleCinePlay: viewportUtils.toggleCinePlay,
-    clearTools: viewportUtils.clearTools,
-    resetViewport: viewportUtils.resetViewport,
-    invert: viewportUtils.invert
-};*/
 
 class BrainnowViewer extends Component {
   static propTypes = {
-    studies: PropTypes.array,
-    studyInstanceUids: PropTypes.array,
+    studies: PropTypes.arrayOf(
+      PropTypes.shape({
+        StudyInstanceUID: PropTypes.string.isRequired,
+        StudyDate: PropTypes.string,
+        displaySets: PropTypes.arrayOf(
+          PropTypes.shape({
+            displaySetInstanceUID: PropTypes.string.isRequired,
+            SeriesDescription: PropTypes.string,
+            SeriesNumber: PropTypes.number,
+            InstanceNumber: PropTypes.number,
+            numImageFrames: PropTypes.number,
+            Modality: PropTypes.string.isRequired,
+            images: PropTypes.arrayOf(
+              PropTypes.shape({
+                getImageId: PropTypes.func.isRequired,
+              })
+            ),
+          })
+        ),
+      })
+    ),
+    studyInstanceUIDs: PropTypes.array,
     activeServer: PropTypes.shape({
       type: PropTypes.string,
       wadoRoot: PropTypes.string,
@@ -135,7 +120,7 @@ class BrainnowViewer extends Component {
       {
         timepointType: 'baseline',
         timepointId: 'TimepointId',
-        studyInstanceUids: this.props.studyInstanceUids,
+        studyInstanceUIDs: this.props.studyInstanceUIDs,
         patientId: filter.patientId,
         earliestDate,
         latestDate,
@@ -159,7 +144,7 @@ class BrainnowViewer extends Component {
     return Promise.resolve();
   };
 
-  disassociateStudy = (timepointIds, studyInstanceUid) => {
+  disassociateStudy = (timepointIds, studyInstanceUID) => {
     OHIF.log.info('disassociateStudy');
     return Promise.resolve();
   };
@@ -346,15 +331,15 @@ export default withDialog(BrainnowViewer);
  */
 const _mapStudiesToThumbnails = function (studies) {
   return studies.map(study => {
-    const { studyInstanceUid } = study;
+    const { StudyInstanceUID } = study;
 
     const thumbnails = study.displaySets.map(displaySet => {
       const {
-        displaySetInstanceUid,
-        seriesDescription,
-        seriesNumber,
-        instanceNumber,
-        numImageFrames,
+        displaySetInstanceUID,
+        SeriesDescription,
+        SeriesNumber,
+        InstanceNumber,
+        NumImageFrames,
       } = displaySet;
 
       let imageId;
@@ -376,16 +361,16 @@ const _mapStudiesToThumbnails = function (studies) {
       return {
         imageId,
         altImageText,
-        displaySetInstanceUid,
-        seriesDescription,
-        seriesNumber,
-        instanceNumber,
-        numImageFrames,
+        displaySetInstanceUID,
+        SeriesDescription,
+        SeriesNumber,
+        InstanceNumber,
+        NumImageFrames,
       };
     });
 
     return {
-      studyInstanceUid,
+      StudyInstanceUID,
       thumbnails,
     };
   });

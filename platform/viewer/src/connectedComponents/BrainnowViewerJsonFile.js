@@ -3,16 +3,16 @@ import { metadata, utils, redux } from '@ohif/core';
 import { connect } from 'react-redux';
 
 import ConnectedBrainnowViewer from './ConnectedBrainnowViewer';
-import ConnectedViewer from './ConnectedViewer';
+// import ConnectedViewer from './ConnectedViewer';
 import PropTypes from 'prop-types';
-import { extensionManager, commandsManager } from '../App.js';
+import { extensionManager } from '../App.js';
 import filesToStudies from '../lib/filesToStudies';
 import './ViewerLocalFileData.css';
 import { withTranslation } from 'react-i18next';
 
 
 const { OHIFStudyMetadata } = metadata;
-const { studyMetadataManager, updateMetaDataManager } = utils;
+const { studyMetadataManager } = utils;
 const { setLayout } = redux.actions;
 const mapDispatchToProps = dispatch => {
   return {
@@ -42,7 +42,7 @@ class BrainnowViewerJsonFile extends Component {
     const updatedStudies = studies.map(study => {
       const studyMetadata = new OHIFStudyMetadata(
         study,
-        study.studyInstanceUid
+        study.studyInstanceUID
       );
       const sopClassHandlerModules =
         extensionManager.modules['sopClassHandlerModule'];
@@ -57,7 +57,7 @@ class BrainnowViewerJsonFile extends Component {
         displayset.localFile = true;
       });
       // Updates WADO-RS metaDataManager
-      updateMetaDataManager(study);
+      // updateMetaDataManager(study);
 
       studyMetadataManager.add(studyMetadata);
       // console.log('studyMetadata');
@@ -129,18 +129,18 @@ class BrainnowViewerJsonFile extends Component {
       <div style={{ width: '100%', height: '100%' }}>
         <ConnectedBrainnowViewer
           studies={this.state.studies}
-          studyInstanceUids={
+          studyInstanceUIDs={
             this.state.studies &&
-            this.state.studies.map(a => a.studyInstanceUid)
+            this.state.studies.map(a => a.studyInstanceUID)
           }
         />
       </div>
       // <div style={{ width: '100%', height: '100%' }}>
       //   <ConnectedViewer
       //     studies={this.state.studies}
-      //     studyInstanceUids={
+      //     studyInstanceUIDs={
       //       this.state.studies &&
-      //       this.state.studies.map(a => a.studyInstanceUid)
+      //       this.state.studies.map(a => a.studyInstanceUID)
       //     }
       //   />
       // </div>

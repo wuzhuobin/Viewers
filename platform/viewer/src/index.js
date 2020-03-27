@@ -8,6 +8,7 @@ import 'regenerator-runtime/runtime';
 import App from './App.js';
 import React from 'react';
 import ReactDOM from 'react-dom';
+// test
 
 /**
  * EXTENSIONS
@@ -24,6 +25,7 @@ import ReactDOM from 'react-dom';
  */
 import OHIFVTKExtension from '@ohif/extension-vtk';
 import OHIFDicomHtmlExtension from '@ohif/extension-dicom-html';
+import OHIFDicomSegmentationExtension from '@ohif/extension-dicom-segmentation';
 import OHIFDicomMicroscopyExtension from '@ohif/extension-dicom-microscopy';
 import OHIFDicomPDFExtension from '@ohif/extension-dicom-pdf';
 import BrainnowExtension from './appExtensions/Brainnow';
@@ -45,6 +47,7 @@ const appProps = {
     OHIFDicomMicroscopyExtension,
     OHIFDicomPDFExtension,
     BrainnowExtension,
+    OHIFDicomSegmentationExtension,
   ],
 };
 

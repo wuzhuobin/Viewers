@@ -8,7 +8,7 @@ const SOP_CLASS_UIDS = {
 const BrainnowCornerstoneSopClassHandler = {
   id: 'BrainnowCornerstoneSopClassHandlerPlugin',
   type: MODULE_TYPES.SOP_CLASS_HANDLER,
-  sopClassUids: Object.values(SOP_CLASS_UIDS),
+  sopClassUIDs: Object.values(SOP_CLASS_UIDS),
   getDisplaySetFromSeries(series, study) {
     // const instance = series.getFirstInstance();
 
@@ -18,11 +18,11 @@ const BrainnowCornerstoneSopClassHandler = {
     return {
       plugin: 'brainnow-cornerstone',
       modality: 'Brainnow-MR',
-      displaySetInstanceUid: utils.guid(),
+      displaySetInstanceUID: utils.guid(),
       // dicomWebClient,
-      // sopInstanceUid: instance.getSOPInstanceUID(),
-      // seriesInstanceUid: series.getSeriesInstanceUID(),
-      // studyInstanceUid: study.getStudyInstanceUID(),
+      // sopInstanceUID: instance.getSOPInstanceUID(),
+      // seriesInstanceUID: series.getSeriesInstanceUID(),
+      // studyInstanceUID: study.getStudyInstanceUID(),
     };
   },
 };

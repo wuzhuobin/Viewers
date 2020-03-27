@@ -19,7 +19,7 @@ const StudyListRouting = asyncComponent(() =>
   )
 );
 const StandaloneRouting = asyncComponent(() =>
-  import(/* webpackChunkName: "StandaloneRouting" */ './StandaloneRouting.js')
+  import(/* webpackChunkName: "ConnectedStandaloneRouting" */ '../connectedComponents/ConnectedStandaloneRouting.js')
 );
 const ViewerLocalFileData = asyncComponent(() =>
   import(
@@ -37,7 +37,7 @@ const reload = () => window.location.reload();
 const ROUTES_DEF = {
   default: {
     viewer: {
-      path: '/viewer/:studyInstanceUids',
+      path: '/viewer/:studyInstanceUIDs',
       component: ViewerRouting,
     },
     standaloneViewer: {
@@ -64,7 +64,7 @@ const ROUTES_DEF = {
   gcloud: {
     viewer: {
       path:
-        '/projects/:project/locations/:location/datasets/:dataset/dicomStores/:dicomStore/study/:studyInstanceUids',
+        '/projects/:project/locations/:location/datasets/:dataset/dicomStores/:dicomStore/study/:studyInstanceUIDs',
       component: ViewerRouting,
       condition: appConfig => {
         return !!appConfig.enableGoogleCloudAdapter;
