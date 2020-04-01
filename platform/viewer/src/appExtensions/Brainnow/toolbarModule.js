@@ -3,6 +3,9 @@ import OHIFCornerstoneExtesion from '@ohif/extension-cornerstone'
 function updateId(definitions) {
   const newDefinitions = [];
   for (let definition of definitions) {
+    if (definition.id === 'Reset') {
+      continue;
+    }
     if (Array.isArray(definition.buttons)) {
       definition.buttons = updateId(definition.buttons);
     }

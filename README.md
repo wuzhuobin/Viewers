@@ -21,6 +21,7 @@
 ## Testing URLs
 [TEST](http://127.0.0.1:3000/#/brainnow/https://dev-download.obs.cn-north-1.myhuaweicloud.com/FcdFrontData/demo/BN-FCD100001/fcd.json)
 [TEST](http://127.0.0.1:3000/#/brainnow/https://dev-download.obs.cn-north-1.myhuaweicloud.com/FcdFrontData/demo/BN-FCD100002/fcd.json)
+[TEST](http://127.0.0.1:3000/#/brainnow/https://prod-download.obs.cn-north-1.myhuaweicloud.com/Dragon/bruno/BN-S10000004/dcm.json)
 
 
 [![NPM version][npm-version-image]][npm-url]
